@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import WelcomePageContent from "./welcome.component";
-import { withWebId } from "@inrupt/solid-react-components";
+import { withWebId , LogoutButton} from "@inrupt/solid-react-components";
 import data from "@solid/query-ldflex";
 
 // Manually-created vcard#hasPhoto context link
 const hasPhotoContext = "http://www.w3.org/2006/vcard/ns#hasPhoto";
-// img context 
+// img context
 const imgContext = "http://xmlns.com/foaf/0.1/img"
 
 /**
@@ -70,6 +70,7 @@ class WelcomeComponent extends Component<Props> {
   };
 
   render() {
+    console.log("test")
     const { name, image, isLoading } = this.state;
     return (
       <WelcomePageContent name={name} image={image} isLoading={isLoading} />

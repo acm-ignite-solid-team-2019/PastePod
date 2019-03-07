@@ -1,5 +1,5 @@
 import React from "react";
-import { LogoutButton } from "@inrupt/solid-react-components";
+import { LogoutButton, Uploader, ProfileUploader} from "@inrupt/solid-react-components";
 import isLoading from "@hocs/isLoading";
 import {
   WelcomeWrapper,
@@ -66,6 +66,24 @@ const WelcomePageContent = props => {
             practices, and an application generator meant to accelerate the
             development of high-quality Solid applications:
           </p>
+          <p>
+          <Uploader
+              {...{
+                fileBase: "https://evansun.solid.community/public",
+                limitFiles: 1,
+                limitSize: 500000,
+                accept: 'png,jpg,jpeg',
+                onError: (error) => {
+                  console.log(error.statusText);
+                },
+                onComplete: uploadedFiles => {
+                  console.log(uploadedFiles);
+                },
+                render: (props) => (
+                  <ProfileUploader {...{ ...props }} />
+                )
+              }}
+            /> </p>
           <ul>
             <li>
               <a
