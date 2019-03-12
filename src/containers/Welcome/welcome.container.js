@@ -47,6 +47,7 @@ class WelcomeComponent extends Component<Props> {
      * from the returned user object.
      */
     const user = data[this.props.webId];
+    console.log(user)
     const nameLd = await user.name;
 
     const name = nameLd ? nameLd.value : "";
@@ -70,7 +71,6 @@ class WelcomeComponent extends Component<Props> {
   };
 
   render() {
-    console.log("test")
     const { name, image, isLoading } = this.state;
     return (
       <WelcomePageContent name={name} image={image} isLoading={isLoading} />

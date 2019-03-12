@@ -10,13 +10,100 @@ import {
   ImageContainer,
   ImageWrapper
 } from "./welcome.style";
+import { debounce } from "lodash";
+import ReactDOM from "react-dom";
+
+import Editor from "rich-markdown-editor";
+/**import MarkdownEditor from "react-markdown-editor";
+
 
 /**
  * Welcome Page UI component, containing the styled components for the Welcome Page
  * Image component will get theimage context and resolve the value to render.
  * @param props
  */
+
+/** var TestComponent = React.createClass({
+*     render: function() {
+*         return (
+*             <MarkdownEditor initialContent="Test" iconsSet="font-awesome"/>
+*         );
+*     }
+* });
+ */
+ const exampleText = "Hello World"
+const defaultValue = savedText || exampleText;
+const savedText = localStorage.getItem("saved");
+class Example extends React.Component<*, { readOnly: boolean, dark: boolean }> {
+  state = {
+    readOnly: false,
+    dark: localStorage.getItem("dark") === "enabled",
+  };
+
+  handleToggleReadOnly = () => {
+    this.setState({ readOnly: !this.state.readOnly });
+  };
+
+  handleToggleDark = () => {
+    const dark = !this.state.dark;
+    this.setState({ dark });
+    localStorage.setItem("dark", dark ? "enabled" : "disabled");
+  };
+
+  handleChange = debounce(value => {
+    localStorage.setItem("saved", value());
+  }, 250);
+
+  render() {
+    const { body } = document;
+    if (body) body.style.backgroundColor = this.state.dark ? "#181A1B" : "#FFF";
+
+    return (
+      <div style={{ marginTop: "60px" }}>
+        <p>
+          <button type="button" onClick={this.handleToggleReadOnly}>
+            {this.state.readOnly ? "Editable" : "Read Only"}
+          </button>
+          <button type="button" onClick={this.handleToggleDark}>
+            {this.state.dark ? "Light Theme" : "Dark Theme"}
+          </button>
+        </p>
+        <Editor
+          id="Example"
+          readOnly={this.state.readOnly}
+          defaultValue={defaultValue}
+          onSave={options => console.log("Save triggered", options, savedText)}
+          onCancel={() => console.log("Cancel triggered")}
+          onChange={this.handleChange}
+          onClickLink={href => console.log("Clicked link: ", href)}
+          onShowToast={message => window.alert(message)}
+          onSearchLink={async term => {
+            console.log("Searched link: ", term);
+            return [
+              {
+                title: term,
+                url: "localhost",
+              },
+            ];
+          }}
+          uploadImage={file => {
+            console.log("File upload triggered: ", file);
+
+            // Delay to simulate time taken to upload
+            return new Promise(resolve => {
+              setTimeout(() => resolve("http://lorempixel.com/400/200/"), 1500);
+            });
+          }}
+          dark={this.state.dark}
+          autoFocus
+          toc
+        />
+      </div>
+    );
+  }
+}
 const WelcomePageContent = props => {
+  console.log(props)
   return (
     <WelcomeWrapper>
       <WelcomeCard className="card">
@@ -39,6 +126,9 @@ const WelcomePageContent = props => {
           </p>
         </WelcomeProfile>
       </WelcomeCard>
+      <div style={{ marginTop: "60px" }}>
+      <Example   />
+   </div>
       <WelcomeCard className="card">
         <WelcomeDetail>
           <h3>
@@ -69,10 +159,10 @@ const WelcomePageContent = props => {
           <p>
           <Uploader
               {...{
-                fileBase: "https://evansun.solid.community/public",
+                fileBase: "https",
                 limitFiles: 1,
                 limitSize: 500000,
-                accept: 'png,jpg,jpeg',
+                accept: 'png,pdf',
                 onError: (error) => {
                   console.log(error.statusText);
                 },
