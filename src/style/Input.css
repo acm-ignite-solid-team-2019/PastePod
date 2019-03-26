@@ -1,0 +1,17 @@
+textarea {
+    background: transparent;
+
+    font-family: monospace;
+    font-size: 13px;
+
+    outline: none;
+    resize: none;
+    overflow: hidden;
+
+    border-width: 0px;
+
+    width: 100%;
+    height: 100%;
+
+    color: #bababa;
+}
