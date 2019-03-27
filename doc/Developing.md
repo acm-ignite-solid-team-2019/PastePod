@@ -4,13 +4,18 @@ Documentation for running the app locally and getting an IDE set up with it.
 ## Building
 Install git, Node, and NPM.
 
-1. Clone the repo 
+1. Clone the repo
+   
    `$ git clone -b prototype/initial https://github.com/evanwsun/solid-ignite.git`
+   
    Note that this specifically clones and checks out `prototype/initial`. This may not be required in the future.
 2. Install the required dependencies
+   
    `$ npm install`
+
    This will take some time.
 3. Run the local web server
+   
    `$npm start`
 
 ## IDE Setup
