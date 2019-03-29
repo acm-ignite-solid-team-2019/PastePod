@@ -1,5 +1,9 @@
 .Header {
-    width: 100%;
+    /*width: 100%;*/
+    overflow: auto;
+    box-shadow: 0 4px 3px rgba(0,0,0,.5);
+    margin-bottom: 1vh;
+    padding: 1vh;
 }
 
 .Header>.Left-Section {
@@ -13,5 +17,6 @@
 .Header>.Right-Section> * {
     float: left;
     margin-right: 10px;
-    margin-top: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
