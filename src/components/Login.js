@@ -24,7 +24,7 @@ class Login extends React.Component {
                 <button onClick={this.onOpenModal}>Login</button>
 
                 <Modal open={open} onClose={this.onCloseModal} focusTrapped>
-                    <ProviderLogin callbackUri="http://localhost:3000"/>
+                    <ProviderLogin callbackUri={`${window.location.origin}`}/>
                 </Modal>
             </div>
         );
