@@ -5,6 +5,8 @@
   "dependencies": {
     "@inrupt/solid-react-components": "^0.3.1",
     "@solid/react": "latest",
+    "cryptr": "^4.0.2",
+    "randomstring": "^1.1.5",
     "js-sha1": "^0.6.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
@@ -14,7 +16,7 @@
     "solid-auth-client": "^2.3.0",
     "sqlite3": "^4.0.6",
     "styled-components": "^4.2.0",
-    "typescript": "^3.3.4000",
+    "typescript": "^3.3.4000"
     "uri-js": "^4.2.2"
   },
   "scripts": {
