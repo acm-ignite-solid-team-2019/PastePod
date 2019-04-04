@@ -11,8 +11,8 @@ class App extends React.Component {
       constructor(props) {
         super(props)
         this.password = "password"
-        this.nextpassword = "password"
-        this.pods = ['https://evansun.solid.community/public/','https://evansun.solid.community/public/','https://evansun.solid.community/public/']
+        this.nextpassword = ""
+        this.pods = ['https://evansun.solid.community/public/','https://evansun.solid.community/public/','https://evansun.solid.community/public/', 'https://evansun.solid.community/public/']
       };
     state = {
         isSaved: false,
@@ -30,13 +30,16 @@ class App extends React.Component {
     encryptPaste = () => {
         let text = String(this.state.text)
         let i = 0
-        const splits = 2
+        const splits = 4
         let data = []
         let length = text.length
+        this.nextpassword = randomstring.generate(10)
         for(i = 0; i < splits; i ++){
           if(i != splits -1){
-          data.push(this.encrypt({'data': text.substring(i*Math.floor(length / splits),(i+1)*Math.floor(length / splits)), "location": this.pods[i], "password": this.nextpassword}))
-          this.nextpassword = randomstring.generate(10)
+          data.push(this.encrypt({'data': text.substring(i*Math.floor(length / splits),(i+1)*Math.floor(length / splits)), "location": this.pods[i], "password": this.nextpassword.substr(this.nextpassword.length - 10)}))
+          console.log(this.nextpassword)
+          console.log(this.nextpassword.substr(this.nextpassword.length-10))
+          this.nextpassword += randomstring.generate(10)
         }
         else{
             data.push(this.encrypt({'data': text.substring(i*Math.floor(length / splits),(i+1)*Math.floor(length / splits)), "location": "EOF", "password": "EOF"}))
@@ -44,7 +47,7 @@ class App extends React.Component {
         }
         return data
     }
-    loadencrypted = (loc, password) => {
+    loadEncrypted = (loc, password) => {
       let self = this
       let data = []
       auth.fetch(loc).then(response => response.text()).then(text=>{
@@ -56,7 +59,7 @@ class App extends React.Component {
               data.push(self.decrypt(text,newPass))
             })
             newLoc = data.slice(-1)[0].location
-            newPass = data.slice(-1)[0].password
+            newPass += data.slice(-1)[0].password
           }
             })
           }
