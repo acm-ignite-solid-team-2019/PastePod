@@ -1,4 +1,7 @@
 import React from 'react';
+import sha1 from 'js-sha1'
+import auth from 'solid-auth-client'
+import { parse } from 'uri-js'
 import Header from './components/Header'
 import Input from './components/Input'
 import Display from './components/Display'
@@ -65,10 +68,25 @@ class App extends React.Component {
           }
 
 
-    savePaste = () => {
+    savePaste = (webId) => {
+        let parsed = parse(webId);
+        let loc = (name) => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}`;
+
+        console.log("savePaste");
         this.setState({
             isSaved: true
-        })
+        });
+
+        let key = sha1(webId + this.state.text);
+        auth.fetch(loc(key), {
+            method: "PUT",
+            force: true,
+            headers: {
+                "content-type": "text/plain",
+                "credentials": "include"
+            },
+            body: this.state.text
+        });
     };
     loadPaste = () => {
         const loc =  document.getElementById("loadBox").value;
