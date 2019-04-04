@@ -8,7 +8,6 @@ import Display from './components/Display'
 
 import './style/App.css'
 const Cryptr = require('cryptr');
-const auth = require('solid-auth-client')
 const randomstring = require("randomstring");
 class App extends React.Component {
       constructor(props) {
@@ -107,7 +106,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <Header onSave={this.encryptPaste} onLoad={this.loadPaste}/>
+                <Header onSave={this.savePaste} onLoad={this.loadPaste}/>
 
                 {this.state.isSaved
                  ? <Display text={this.state.text} lang={this.state.lang}/>
