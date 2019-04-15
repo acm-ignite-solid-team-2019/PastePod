@@ -1,0 +1,12 @@
+{
+  "name": "solid-paste-backend",
+  "version": "0.1.0",
+  "description": "The back end node app serving resource requests from a database.",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "scripts": {
+    "start": "node --experimental-modules app.mjs"
+  }
+}
