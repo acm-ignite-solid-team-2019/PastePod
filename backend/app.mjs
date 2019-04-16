@@ -1,9 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { MapDatabase } from "./database";
+import { SqliteDatabase } from "./database";
 
 const app = express();
-const db = new MapDatabase();
+const db = new SqliteDatabase();
 const port = 8080;
 
 app.use(bodyParser.text());
