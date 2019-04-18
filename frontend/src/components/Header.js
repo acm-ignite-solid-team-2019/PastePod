@@ -17,7 +17,7 @@ const Header = props => (
         <div className="Right-Section">
             <LoggedIn>
                 <LoggedInAs className="LoggedInAs"/>
-                <Route exact={true} path="/" render={props => <Save {...props} onSave={props.onSave}/>}/>
+                <Route exact={true} path="/" render={() => <Save onSave={props.onSave}/>}/>
             </LoggedIn>
             <AuthButton popup="popup.html" login="Login" logout="Logout"/>
         </div>
