@@ -1,8 +1,6 @@
 import React from 'react';
-import { LoggedIn, LoggedOut } from '@solid/react'
-import Login from "./Login";
+import { LoggedIn, AuthButton } from '@solid/react'
 import Save from './Save'
-import Logout from './Logout'
 import LoggedInAs from './LoggedInAs'
 
 import '../style/Header.css'
@@ -17,11 +15,8 @@ const Header = props => (
             <LoggedIn>
                 <LoggedInAs className="LoggedInAs"/>
                 <Save onSave={props.onSave}/>
-                <Logout />
             </LoggedIn>
-            <LoggedOut>
-                <Login />
-            </LoggedOut>
+            <AuthButton popup="popup.html" login="Login" logout="Logout"/>
         </div>
     </div>
 );
