@@ -38,7 +38,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <Header onSave={this.savePaste}/>
+                <Header onSave={this.savePaste} canSave={this.state.text.length > 0}/>
                 <Switch>
                     <Route exact={true} path="/" render={props => <Input {...props} text={this.state.text} setText={this.setText}/>}/>
                     <Route path="/:hash" component={Display}/>
