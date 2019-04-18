@@ -7,6 +7,11 @@ const db = new SqliteDatabase();
 const port = 8080;
 
 app.use(bodyParser.text());
+app.use((req, res, next) => {
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS");
+    next();
+});
 
 app.get('/paste/:hash', (req, res) =>
     db.getUri(req.params.hash)
