@@ -24,7 +24,9 @@ class Display extends React.Component {
     render() {
         return (
             <div className="Display">
-                {this.state.text}
+                <pre>
+                    {this.state.text}
+                </pre>
             </div>
         )
     }

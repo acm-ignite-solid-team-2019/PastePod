@@ -12,13 +12,7 @@ import './style/App.css'
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-        console.log(props);
-    }
-
     state = {
-        docBase: null,
         text: ""
     };
 
@@ -36,6 +30,7 @@ class App extends React.Component {
             body: this.state.text
         })
             .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
+            .then(() => this.setState({ text: "" }))
             .then(() => this.props.history.push(`/${key}`))
     };
 
