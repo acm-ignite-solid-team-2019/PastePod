@@ -21,7 +21,7 @@ class App extends React.Component {
 
     savePaste = webId => {
         let parsed = parse(webId);
-        let loc = name => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}`;
+        let loc = name => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}.txt`;
 
         let key = sha1(webId + this.state.text);
         auth.fetch(loc(key), {
