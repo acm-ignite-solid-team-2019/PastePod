@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom'
 import { parse } from 'uri-js'
 import auth from 'solid-auth-client'
-import sha1 from 'js-sha1'
+import crypto from 'crypto'
 
 import Header from "./components/Header";
 import Input from "./components/Input";
@@ -23,7 +23,7 @@ class App extends React.Component {
         let parsed = parse(webId);
         let loc = name => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}.txt`;
 
-        let key = sha1(webId + this.state.text);
+        let key = crypto.randomBytes(20).toString('hex');
         auth.fetch(loc(key), {
             method: "PUT",
             headers: { "content-type": "text/plain" },
@@ -31,7 +31,7 @@ class App extends React.Component {
         })
             .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
             .then(() => this.setState({ text: "" }))
-            .then(() => this.props.history.push(`/${key}`))
+            .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
     };
 
 

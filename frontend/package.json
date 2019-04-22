@@ -7,7 +7,6 @@
     "@solid/react": "latest",
     "cryptr": "^4.0.2",
     "history": "^4.9.0",
-    "js-sha1": "^0.6.0",
     "randomstring": "^1.1.5",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",

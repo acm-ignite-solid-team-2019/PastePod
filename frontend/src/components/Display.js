@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/Display.css'
+import Highlight from "react-highlight";
 
 class Display extends React.Component {
 
@@ -28,9 +29,9 @@ class Display extends React.Component {
     render() {
         return (
             <div className="Display">
-                <pre>
+                <Highlight>
                     {this.state.text}
-                </pre>
+                </Highlight>
             </div>
         )
     }
