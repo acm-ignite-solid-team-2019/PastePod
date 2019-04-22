@@ -29,12 +29,16 @@ export class SqliteDatabase extends Database {
 
     getUri(hash) {
         return new Promise((resolve, reject) => {
-            this.db.prepare('SELECT uri FROM shareLinks WHERE hash = (?)', err => { if (err) reject(err); })
-                .get([hash], (err, row) => {
+            this.db.prepare('SELECT uri FROM shareLinks WHERE hash LIKE $hash', err => { if (err) reject(err); })
+                .all({$hash: `${hash}%`}, (err, rows) => {
                     if (err) reject(err);
 
-                    if (row) resolve(row.uri);
-                    else reject("No such paste.");
+                    if (rows.length === 0) {
+                      console.log("1");
+                      reject("No such paste.");
+                    }
+                    else if (rows.length === 1) resolve(rows[0].uri);
+                    else reject(`Multiple pastes found for hash ${hash}.`);
                 });
         });
     }
