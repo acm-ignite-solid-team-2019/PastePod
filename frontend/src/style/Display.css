@@ -1,3 +1,11 @@
+.Display {
+    padding-left: 1vh;
+}
+
 .Display, .Display code, .Display pre {
     flex: 2;
+}
+
+.Display > pre {
+    margin-top: 0;
 }

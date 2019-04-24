@@ -1,11 +1,11 @@
 import React from 'react';
-import sha1 from 'js-sha1'
-import auth from 'solid-auth-client'
+import {Route, Switch, withRouter} from 'react-router-dom'
 import { parse } from 'uri-js'
-import Encrypt from './Encrypt'
+import auth from 'solid-auth-client'
+import crypto from 'crypto'
 
-import Header from './components/Header'
-import Input from './components/Input'
+import Header from "./components/Header";
+import Input from "./components/Input";
 import Display from './components/Display'
 
 import './style/App.css'
@@ -13,6 +13,7 @@ import './style/App.css'
 const fileClient = require('solid-file-client');
 class App extends React.Component {
 
+<<<<<<< HEAD
     constructor(props) {
         super(props);
         this.encrypter = new Encrypt();
@@ -23,33 +24,25 @@ class App extends React.Component {
         text: "",
         lang: "java",
         search: false,
+=======
+    state = {
+        text: ""
+>>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
     };
 
-    encryptPaste = () => {
-        this.encrypter.encrypt(this.state.text);
-    };
+    setText = text =>
+        this.setState({ text: text });
 
-    loadEncrypted = (loc, password) => {
-        this.encrypter.decrypt(loc, password);
-    };
-
-    savePaste = (webId) => {
+    savePaste = webId => {
         let parsed = parse(webId);
-        let loc = (name) => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}`;
+        let loc = name => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}.txt`;
 
-        this.setState({
-            isSaved: true
-        });
-
-        let key = sha1(webId + this.state.text);
+        let key = crypto.randomBytes(20).toString('hex');
         auth.fetch(loc(key), {
             method: "PUT",
-            force: true,
-            headers: {
-                "content-type": "text/plain",
-                "credentials": "include"
-            },
+            headers: { "content-type": "text/plain" },
             body: this.state.text
+<<<<<<< HEAD
         });
     };
 
@@ -59,9 +52,15 @@ class App extends React.Component {
             this.setText(text);
             this.setState({isSaved: true});
 
+=======
+>>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
         })
+            .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
+            .then(() => this.setState({ text: "" }))
+            .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
     };
 
+<<<<<<< HEAD
     setText = text => {
         this.setState({
             text: text
@@ -102,10 +101,20 @@ class App extends React.Component {
                     ? <Display text={this.state.text} lang={this.state.lang}/>
                     : <Input text={this.state.text} setText={this.setText}/>}
 
-            </div>
+=======
 
+    render() {
+        return (
+            <div className="App">
+                <Header onSave={this.savePaste} canSave={this.state.text.length > 0}/>
+                <Switch>
+                    <Route exact={true} path="/" render={props => <Input {...props} text={this.state.text} setText={this.setText}/>}/>
+                    <Route path="/:hash" component={Display}/>
+                </Switch>
+>>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
+            </div>
         );
     }
 }
 
-export default App;
+export default withRouter(App);
