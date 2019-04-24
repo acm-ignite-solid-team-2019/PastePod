@@ -16,6 +16,13 @@ body {
 html {
   margin: 0;
   padding: 0;
+
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
 }
 
 code {

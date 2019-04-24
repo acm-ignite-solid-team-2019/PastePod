@@ -1,0 +1,50 @@
+.Sidebar-Content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}
+
+.Sidebar-Content>.top {
+    padding: 0 20px 5px 20px;
+    border-bottom: 1px solid black
+}
+
+.Sidebar-Content>.middle {
+    flex: 1 1 auto;
+    padding-top: 20px;
+}
+
+.Sidebar-Content>.bottom {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #e7e7e7;
+    color: gray;
+    cursor: default;
+}
+
+.login {
+    background-color: #4CAF50; /* Green */
+}
+
+.logout {
+    background-color: #f44336; /* Red */
+}
+
+.Save-Button {
+    background-color: #6896ba;
+}

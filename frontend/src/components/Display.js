@@ -1,6 +1,7 @@
 import React from 'react';
-import '../style/Display.css'
 import Highlight from "react-highlight";
+
+import '../style/Display.css'
 
 class Display extends React.Component {
 

@@ -4,7 +4,7 @@ import { parse } from 'uri-js'
 import auth from 'solid-auth-client'
 import crypto from 'crypto'
 
-import Header from "./components/Header";
+import Sidebar from "./components/Sidebar"
 import Input from "./components/Input";
 import Display from './components/Display'
 
@@ -13,8 +13,12 @@ import './style/App.css'
 class App extends React.Component {
 
     state = {
-        text: ""
+        text: "",
+        isSidebarOpen: false
     };
+
+    setSidebarOpen = isOpen =>
+        this.setState({ isSidebarOpen: isOpen });
 
     setText = text =>
         this.setState({ text: text });
@@ -37,13 +41,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="App">
-                <Header onSave={this.savePaste} canSave={this.state.text.length > 0}/>
-                <Switch>
-                    <Route exact={true} path="/" render={props => <Input {...props} text={this.state.text} setText={this.setText}/>}/>
-                    <Route path="/:hash" component={Display}/>
-                </Switch>
-            </div>
+            <Sidebar
+                isOpen={this.state.isSidebarOpen}
+                setOpen={this.setSidebarOpen}
+                onSave={this.savePaste}
+                canSave={this.state.text.length > 0}
+            >
+                <div className="Main">
+                    <Switch>
+                        <Route exact={true} path="/" render={props =>
+                            <Input {...props} text={this.state.text} setText={this.setText}/>}/>
+                        <Route path="/:hash" component={Display}/>
+                    </Switch>
+                </div>
+            </Sidebar>
         );
     }
 }
