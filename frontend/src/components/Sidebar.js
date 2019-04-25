@@ -4,6 +4,8 @@ import {LoggedIn, AuthButton, Value} from "@solid/react";
 
 import '../style/Sidebar.css'
 import Save from "./Save";
+import Edit from "./Edit";
+import New from "./New";
 import {Route} from "react-router-dom";
 
 class Sidebar extends React.Component {
@@ -16,6 +18,12 @@ class Sidebar extends React.Component {
                 </div>
                 <div className="middle">
                     <Route exact={true} path="/" render={() => <Save onSave={this.props.onSave} canSave={this.props.canSave}/>}/>
+                    <Route path="/:hash" render={() =>
+                        <React.Fragment>
+                            <New onNew={this.props.onNew}/>
+                            <Edit onEdit={this.props.onEdit}/>
+                        </React.Fragment>
+                    }/>
                 </div>
                 <div className="bottom">
                     <LoggedIn>
@@ -25,6 +33,7 @@ class Sidebar extends React.Component {
                 </div>
             </div>
         );
+
         return (
             <ReactSidebar
                 sidebar={content}

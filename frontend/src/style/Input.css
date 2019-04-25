@@ -10,4 +10,6 @@ textarea {
 
     padding-left: 1vh;
     padding-right: 1vh;
+
+    resize: none;
 }

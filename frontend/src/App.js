@@ -38,6 +38,16 @@ class App extends React.Component {
             .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
     };
 
+    onEdit = () => {
+        this.props.history.push('/');
+    };
+
+    onNew = () => {
+        this.props.history.push('/');
+        this.setState({
+            text: ""
+        })
+    };
 
     render() {
         return (
@@ -46,12 +56,15 @@ class App extends React.Component {
                 setOpen={this.setSidebarOpen}
                 onSave={this.savePaste}
                 canSave={this.state.text.length > 0}
+                onEdit={this.onEdit}
+                onNew={this.onNew}
             >
                 <div className="Main">
                     <Switch>
                         <Route exact={true} path="/" render={props =>
                             <Input {...props} text={this.state.text} setText={this.setText}/>}/>
-                        <Route path="/:hash" component={Display}/>
+                        <Route path="/:hash" render={props =>
+                            <Display {...props} text={this.state.text} setText={this.setText}/>}/>
                     </Switch>
                 </div>
             </Sidebar>

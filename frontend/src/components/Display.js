@@ -5,9 +5,9 @@ import '../style/Display.css'
 
 class Display extends React.Component {
 
-    state = {
-        text: null
-    };
+    constructor(props) {
+        super(props);
+    }
 
     componentDidMount() {
         const { hash } = this.props.match.params;
@@ -22,7 +22,7 @@ class Display extends React.Component {
                 })
                 .then(uri => fetch(uri))
                 .then(res => res.text())
-                .then(text => this.setState({ fetched: true, text: text }))
+                .then(text => this.props.setText(text))
                 .catch(() => this.props.history.push('/'));
         }
     }
@@ -31,7 +31,7 @@ class Display extends React.Component {
         return (
             <div className="Display">
                 <Highlight>
-                    {this.state.text}
+                    {this.props.text}
                 </Highlight>
             </div>
         )
