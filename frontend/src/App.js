@@ -3,18 +3,23 @@ import {Route, Switch, withRouter} from 'react-router-dom'
 import { parse } from 'uri-js'
 import auth from 'solid-auth-client'
 import crypto from 'crypto'
+import Modal from 'react-modal'
 
 import Sidebar from "./components/Sidebar"
 import Input from "./components/Input";
 import Display from './components/Display'
 
 import './style/App.css'
+import ModalContent from "./components/ModalContent";
+
+Modal.setAppElement("#root");
 
 class App extends React.Component {
 
     state = {
         text: "",
-        isSidebarOpen: false
+        isSidebarOpen: false,
+        modalOpen: false
     };
 
     setSidebarOpen = isOpen =>
@@ -22,6 +27,9 @@ class App extends React.Component {
 
     setText = text =>
         this.setState({ text: text });
+
+    setModalOpen = isOpen =>
+        this.setState({ modalOpen: isOpen });
 
     savePaste = webId => {
         let parsed = parse(webId);
@@ -38,6 +46,13 @@ class App extends React.Component {
             .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
     };
 
+    load = file => {
+        this.setModalOpen(false);
+        this.setState({ text: "" });
+        this.props.history.push(`/${file.slice(0, 8)}`);
+        // window.location.reload();
+    };
+
     onEdit = () => {
         this.props.history.push('/');
     };
@@ -49,6 +64,13 @@ class App extends React.Component {
         })
     };
 
+    onBrowse = () => {
+        this.setModalOpen(!this.state.modalOpen);
+    };
+
+    getMainElement = () =>
+        document.querySelector('.Main');
+
     render() {
         return (
             <Sidebar
@@ -58,6 +80,7 @@ class App extends React.Component {
                 canSave={this.state.text.length > 0}
                 onEdit={this.onEdit}
                 onNew={this.onNew}
+                onBrowse={this.onBrowse}
             >
                 <div className="Main">
                     <Switch>
@@ -66,6 +89,17 @@ class App extends React.Component {
                         <Route path="/:hash" render={props =>
                             <Display {...props} text={this.state.text} setText={this.setText}/>}/>
                     </Switch>
+
+                    <Modal
+                        isOpen={this.state.modalOpen}
+                        onRequestClose={() => this.setModalOpen(false)}
+                        contentLabel="Example Modal"
+                        parentSelector={this.getMainElement}
+                        className="ReactModalContent"
+                        overlayClassName="ReactModalOverlay"
+                    >
+                        <ModalContent load={file => this.load(file)}/>
+                    </Modal>
                 </div>
             </Sidebar>
         );

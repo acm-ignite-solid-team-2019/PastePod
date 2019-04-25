@@ -1,0 +1,44 @@
+.Files {
+    display: flex;
+    flex-direction: column;
+}
+
+.File {
+    margin-bottom: 10px;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    background-color: #6896ba;
+}
+
+.ReactModalPortal {
+
+}
+
+.ReactModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 200px;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75);
+}
+
+.ReactModalContent {
+    position: absolute;
+    top: 50px;
+    left: 375px;
+    right: 375px;
+    bottom: 50px;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 4px;
+    outline: none;
+    padding: 10px 20px 10px 20px;
+
+    color: black;
+}
+
+.ReactModalContent>h2 {
+    margin-top: 0;
+}

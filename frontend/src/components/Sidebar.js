@@ -6,6 +6,7 @@ import '../style/Sidebar.css'
 import Save from "./Save";
 import Edit from "./Edit";
 import New from "./New";
+import Browse from "./Browse";
 import {Route} from "react-router-dom";
 
 class Sidebar extends React.Component {
@@ -28,6 +29,7 @@ class Sidebar extends React.Component {
                 <div className="bottom">
                     <LoggedIn>
                         <p>Logged in as <b><Value src="user.name"/></b></p>
+                        <Browse onBrowse={this.props.onBrowse}/>
                     </LoggedIn>
                     <AuthButton popup="popup.html" login="Login" logout="Logout"/>
                 </div>

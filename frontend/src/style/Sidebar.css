@@ -14,12 +14,15 @@
     padding-top: 20px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .Sidebar-Content>.bottom {
     text-align: center;
     padding-bottom: 10px;
-    border-top: 1px solid black
+    border-top: 1px solid black;
+    display: flex;
+    flex-direction: column;
 }
 
 button {
@@ -47,7 +50,7 @@ button:disabled {
     background-color: #f44336; /* Red */
 }
 
-.Save-Button, .Edit-Button, .New-Button {
+.Save-Button, .Edit-Button, .New-Button, .Browse-Button {
     background-color: #6896ba;
     margin-bottom: 10px;
 }
