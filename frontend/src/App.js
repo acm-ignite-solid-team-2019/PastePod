@@ -3,7 +3,6 @@ import {Route, Switch, withRouter} from 'react-router-dom'
 import { parse } from 'uri-js'
 import auth from 'solid-auth-client'
 import crypto from 'crypto'
-
 import Header from "./components/Header";
 import Input from "./components/Input";
 import Display from './components/Display'
@@ -13,10 +12,8 @@ import './style/App.css'
 const fileClient = require('solid-file-client');
 class App extends React.Component {
 
-<<<<<<< HEAD
     constructor(props) {
         super(props);
-        this.encrypter = new Encrypt();
         this.files = ""
     }
     state = {
@@ -24,15 +21,10 @@ class App extends React.Component {
         text: "",
         lang: "java",
         search: false,
-=======
-    state = {
-        text: ""
->>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
-    };
-
-    setText = text =>
+      }
+    setText = text => {
         this.setState({ text: text });
-
+      }
     savePaste = webId => {
         let parsed = parse(webId);
         let loc = name => `${parsed.scheme}://${parsed.host}/public/solid-paste/${name}.txt`;
@@ -42,31 +34,28 @@ class App extends React.Component {
             method: "PUT",
             headers: { "content-type": "text/plain" },
             body: this.state.text
-<<<<<<< HEAD
-        });
+        })
+        .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
+        .then(() => this.setState({ text: "" }))
+        .then(() => this.props.history.push(`/${key.slice(0, 8)}`));
     };
 
     loadPaste = () => {
         const loc = document.getElementById("loadBox").value;
+
         auth.fetch(loc).then(response => response.text()).then(text => {
             this.setText(text);
             this.setState({isSaved: true});
-
-=======
->>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
         })
-            .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
-            .then(() => this.setState({ text: "" }))
-            .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
+
     };
 
-<<<<<<< HEAD
     setText = text => {
         this.setState({
             text: text
         })
     };
-    getFiles1 = async (folder = 'https://evansun.solid.community') => {
+    getFiles1 = async (folder) => {
     let files = [];
     const folderContents = await fileClient.readFolder(folder);
     for (let j of folderContents.files){files.push(j)};
@@ -79,7 +68,6 @@ class App extends React.Component {
   };
     getFiles = async (webId) =>{
       let parsed = parse(webId);
-      console.log(parsed['host'])
       this.files  = await this.getFiles1(('https://' + parsed['host']));
       console.log(this.files)
       let listOfFiles = []
@@ -93,25 +81,15 @@ class App extends React.Component {
       console.log(listOfFiles)
       this.setText(listOfFiles.join('\n'));
     }
-    render() {
-        return (
-            <div className="App">
-                <Header getFiles = {this.getFiles} onSave={this.savePaste} onLoad={this.loadPaste}/>
-                {this.state.isSaved
-                    ? <Display text={this.state.text} lang={this.state.lang}/>
-                    : <Input text={this.state.text} setText={this.setText}/>}
-
-=======
 
     render() {
         return (
             <div className="App">
-                <Header onSave={this.savePaste} canSave={this.state.text.length > 0}/>
+                <Header onSave={this.savePaste} onLoad ={this.loadPaste} getFiles = {this.getFiles} canSave={this.state.text.length > 0}/>
                 <Switch>
                     <Route exact={true} path="/" render={props => <Input {...props} text={this.state.text} setText={this.setText}/>}/>
                     <Route path="/:hash" component={Display}/>
                 </Switch>
->>>>>>> 2fa03e32310a9b7b5fc0c6c9c73db419ccbe199b
             </div>
         );
     }
