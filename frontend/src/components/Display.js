@@ -1,6 +1,8 @@
 import React from 'react';
 import Highlight from "react-highlight";
 
+import * as Constants from "../config.js"
+
 import '../style/Display.css'
 
 class Display extends React.Component {
@@ -15,7 +17,7 @@ class Display extends React.Component {
         if (hash.length < 8) { // reject short-hashes which are more likely to collide
           this.props.history.push('/');
         } else {
-            fetch(`http://localhost:8080/paste/${hash}`)
+            fetch(`http://${Constants.HOST}:8080/paste/${hash}`)
                 .then(res => {
                     if (res.ok) return res.text();
                     else return Promise.reject();

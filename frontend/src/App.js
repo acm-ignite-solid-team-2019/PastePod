@@ -12,6 +12,8 @@ import Display from './components/Display'
 import './style/App.css'
 import ModalContent from "./components/ModalContent";
 
+import * as Constants from "./config.js"
+
 Modal.setAppElement("#root");
 
 class App extends React.Component {
@@ -41,7 +43,7 @@ class App extends React.Component {
             headers: { "content-type": "text/plain" },
             body: this.state.text
         })
-            .then(() => fetch(`http://localhost:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
+            .then(() => fetch(`http://${Constants.HOST}:8080/paste/${key}`, { method: "PUT", body: loc(key) }))
             .then(() => this.setState({ text: "" }))
             .then(() => this.props.history.push(`/${key.slice(0, 8)}`))
     };
