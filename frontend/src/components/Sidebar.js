@@ -18,7 +18,10 @@ class Sidebar extends React.Component {
                     <h2>Solid Paste</h2>
                 </div>
                 <div className="middle">
-                    <Route exact={true} path="/" render={() => <Save onSave={this.props.onSave} canSave={this.props.canSave}/>}/>
+                    <LoggedIn>
+                        <Route exact={true} path="/" render={() => <Save onSave={this.props.onSave} canSave={this.props.canSave}/>}/>
+                    </LoggedIn>
+
                     <Route path="/:hash" render={() =>
                         <React.Fragment>
                             <New onNew={this.props.onNew}/>
